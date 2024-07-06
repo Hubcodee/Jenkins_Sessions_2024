@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+
+    stages{
+        stage('SCM'){
+            steps{
+                echo "git pull my java code"
+                git "https://github.com/vimallinuxworld13/simple-java-maven-app.git"
+            }            
+        }
+        stage('Build'){
+            steps{
+                echo "Building the code"
+                sh "mvn clean package"
+            }
+        }
+        stage('Test'){
+            steps{
+                echo "Testing the code"
+                sh "mvn test"
+            }
+        }
+        stage('Deploy'){
+            steps{
+                echo "Deploying the code"
+                sh "java -jar target/*.jar"
+            }
+        }
+        stage('Deploy to Production'){
+            steps{
+                echo "Deploying the code to production server"
+            }
+        }
+    }
+}
