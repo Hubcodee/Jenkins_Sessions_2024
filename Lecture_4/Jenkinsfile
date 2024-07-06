@@ -1,34 +1,29 @@
+// 
+
 pipeline{
-    agent any
-    stages{
-        stage('SCM'){
-            steps{
-                echo "git pull my java code"
-                git "https://github.com/vimallinuxworld13/simple-java-maven-app.git"
-            }            
+        agent {
+            label "linux_slave"
         }
-        stage('Build'){
-            steps{
-                echo "Building the code"
-                sh "mvn clean package"
+        stages{
+            stage("SCM Checkout"){
+                steps{
+                    echo "Checkout code from github"
+                    git "https://github.com/Hubcodee/Jenkins_Sessions_2024.git"
+            }
+            stage("Setup Infratsructure"){
+                steps{
+                    echo "Setting up infrastructure"
+                    sh "yum install httpd -y"
+                    sh "systemctl start httpd"
+                    sh "systemctl enable httpd"
+                    }
+                }
+            }
+            stage("Deploy the code"){
+                steps{
+                    echo "Deploying the code"
+                    sh "cp -r Lecture_4/*.html /var/www/html/"
+                }
             }
         }
-        stage('Test'){
-            steps{
-                echo "Testing the code"
-                sh "mvn test"
-            }
-        }
-        stage('Deploy'){
-            steps{
-                echo "Deploying the code"
-                sh "java -jar target/*.jar"
-            }
-        }
-        stage('Deploy to Production'){
-            steps{
-                echo "Deploying the code to production server"
-            }
-        }
-    }
 }
