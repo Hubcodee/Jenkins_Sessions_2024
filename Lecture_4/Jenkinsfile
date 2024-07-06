@@ -28,6 +28,7 @@ pipeline{
             stage("Deploy the code"){
                 steps{
                     echo "Deploying the code"
+                    sh "rm -rf /var/www/html/*"
                     sh "cp -r Lecture_4/* /var/www/html/"
                 }
             }
