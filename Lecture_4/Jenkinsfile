@@ -15,7 +15,7 @@ pipeline{
                 steps{
                     echo "Checkout code from github"
                     git "https://github.com/Hubcodee/Jenkins_Sessions_2024.git"
-            }
+                }
         }
             stage("Setup Infratsructure"){
                 steps{
@@ -23,12 +23,12 @@ pipeline{
                     sh "yum install httpd -y"
                     sh "systemctl start httpd"
                     sh "systemctl enable httpd"
-                    }
+                }
         }
             stage("Deploy the code"){
                 steps{
                     echo "Deploying the code"
-                    sh "cp -r Lecture_4/*.html /var/www/html/"
+                    sh "cp -r Lecture_4/* /var/www/html/"
                 }
             }
         }
