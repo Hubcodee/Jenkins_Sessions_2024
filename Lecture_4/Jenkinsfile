@@ -3,6 +3,14 @@ pipeline{
             label "linux_slave"
         }
         stages{
+            stage('Prepare') {
+            steps {
+                script {
+                    echo 'Cleaning workspace...'
+                    cleanWs()
+                }
+            }
+        }
             stage("SCM Checkout"){
                 steps{
                     echo "Checkout code from github"
